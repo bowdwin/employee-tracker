@@ -16,7 +16,7 @@ class Database {
     return this.connection.query();
   }
 }
-getDepartment() {
+findDepartment() {
     return this.connection.query();
   }
 
