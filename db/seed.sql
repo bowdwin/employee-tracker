@@ -1,6 +1,6 @@
 use employees;
 
-INSERT INTO employee
+INSERT INTO employees
 (first_name last_name )
 values
 ('jon', 'doe')

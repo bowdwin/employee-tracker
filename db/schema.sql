@@ -1,7 +1,7 @@
-DROP DATABASE IF EXIST EMPLOYEES;
-CREATE DATABASE EMPLOYEES;
+DROP DATABASE IF exists employees;
+CREATE DATABASE employees;
 
-USE EMPLOYEES:
+USE EMPLOYEES;
 
 -- create 3 different table 
 -- * **department**:
