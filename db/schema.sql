@@ -26,7 +26,7 @@ CREATE TABLE employee(
   last_name VARCHAR(30),
   role_id INT(10),
   PRIMARY KEY (id),
-  -- seems to be error with below
   FOREIGN KEY (role_id) REFERENCES role(id)
+    -- seems to be error with below
   -- FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
