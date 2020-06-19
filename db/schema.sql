@@ -16,17 +16,20 @@ CREATE TABLE role(
   title VARCHAR(30),
   salary DECIMAL(30),
   department_id INT(10),
-  PRIMARY KEY (id),
-  FOREIGN KEY (department_id) REFERENCES department(id)
+  PRIMARY KEY (id)
+  -- FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
 CREATE TABLE employee(
   id INTEGER(11) AUTO_INCREMENT NOT NULL,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  role_id INT(10),
-  PRIMARY KEY (id),
-  FOREIGN KEY (role_id) REFERENCES role(id)
+  role_id INTEGER(3),
+  manager_id INTEGER(3),
+  department_id INTEGER(3),
+  PRIMARY KEY (id)
+  --  works
+  -- FOREIGN KEY (role_id) REFERENCES role(id)
     -- seems to be error with below
   -- FOREIGN KEY (manager_id) REFERENCES employee(id)
 );

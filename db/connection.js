@@ -21,6 +21,7 @@ connection.connect((err) => {
 // as its final argument in all cases, and the returned function will result
 // in undefined behaviour if it does not. So basically it's a utility function
 // that takes a regular function and converts it to a function that returns a promise/s
+//not sure if this is required yet
 connection.query = util.promisify(connection.query);
 //exports connection module
 module.exports = connection;
