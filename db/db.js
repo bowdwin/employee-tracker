@@ -2,27 +2,27 @@
 
 const connection = require("./connection");
 
-class Database {
+class DB {
   constructor(connection) {
     this.connection = connection;
   }
-  createDepartment() {
-    return this.connection.query();
-    SELECT
-  }
   createEmployee() {
     return this.connection.query();
-    SELECT
+    SELECT;
   }
+  createDepartment() {
+    return this.connection.query();
+    SELECT;
+  }
+
   createRole() {
     return this.connection.query();
-    SELECT
+    SELECT;
   }
 }
-findDepartment() {
-    return this.connection.query();
-  }
+// findDepartment() {
+//     return this.connection.query();
+//   }
 
-
-  modules.exports = new Database(connection);
+modules.exports = new Database(connection);
 //instead of great do GET or FID despartments almost same as above, about 7 functions

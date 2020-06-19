@@ -1,5 +1,6 @@
-// const database = require("./db/Database.js");
 const inquirer = require("inquirer");
+const DB = require("./db/db");
+const database = new DB();
 const path = require("path");
 const fs = require("fs");
 // const connection = require("./db/connection.js");
@@ -112,8 +113,12 @@ const selectRoleFn = (firstName, lastName) => {
       },
     ])
     .then((choice) => {
-      console.log(choice.optionSelected, " choice in the selectRoleFn");
-      //do something with the database
+      database
+        .createEmployee(firstName, lastName, choice.optionSelected)
+        .then((response) => {
+          console.log(response);
+        });
+      questionSelect();
     });
 };
 

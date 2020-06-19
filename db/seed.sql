@@ -7,9 +7,9 @@ VALUES ("Information Tech"),("Human Resources"),
 
   -- SEED role
 INSERT INTO role (title, salary, department_id)
-VALUES ("CIO", 250000, 1),("Engineering Director", 260000, 3),
+VALUES ("CIO", 15000000, 1),("Engineering Director", 220000, 3),
 ("HR Analyst", 95000, 2),("Operations Analyst", 90000, 4),
-("Marketing Manager", 110000, 5);
+("Marketing Manager", 150000, 5);
 
  -- SEED employee
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
