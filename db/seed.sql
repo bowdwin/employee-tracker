@@ -2,7 +2,7 @@ use employees;
 
 -- SEED department
 INSERT INTO department (name)
-VALUES ("Information Technology"),("Human Resources"),
+VALUES ("Information Tech"),("Human Resources"),
  ("Engineering"),("Operations"),("Marketing");
 
   -- SEED role

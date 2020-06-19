@@ -1,34 +1,19 @@
-//require inquirer and console table
-//require database class
-//create prompt when app is started
-//this will ask for the user what they would like to do can be any of the options in readme
-
-// {
-//     name:
-//     value:
-// }
-
-//after user pickes one where handles respones and then will call as specific function
-//if user select to view employees will call the getEmployees function
-//down below
-//it will also call the find employees function from the database class that we created
-
 // const database = require("./db/Database.js");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const connection = require("./db/connection.js");
-const updateDb = require("./db/db.js");
+// const connection = require("./db/connection.js");
+// const updateDb = require("./db/db.js");
 
 // const teamMembers = [];
 
 // Prompt Questions to ask
+const addEmployees = "ADD Employees";
 const addDep = "ADD Departments";
 const addRoles = "ADD Roles";
-const addEmployees = "ADD Employees";
-const viewDep = "VIEW Departments":
-const viewRoles = "VIEW Roles":
-const viewEmployees = "VIEW Employees":
+const viewDep = "VIEW Departments";
+const viewRoles = "VIEW Roles";
+const viewEmployees = "VIEW Employees";
 const updateEmpRoles = "Update employee roles";
 
 const questionSelect = () => {
@@ -39,7 +24,15 @@ const questionSelect = () => {
         type: "list",
         message: `Welcome to the employee manager app, what would you like to do?`,
         name: "initialOption",
-        choices: [addDep, addRoles, addEmployees,viewDep, viewRoles, viewEmployees, updateEmpRoles],
+        choices: [
+          addEmployees,
+          addDep,
+          addRoles,
+          viewDep,
+          viewRoles,
+          viewEmployees,
+          updateEmpRoles,
+        ],
       },
     ])
     .then((choice) => {
@@ -47,38 +40,28 @@ const questionSelect = () => {
     });
 };
 
-
-
-
 questionSelect();
 
 const choiceSelected = (choice) => {
   const choiceSelected = choice.initialOption;
   console.log(choiceSelected, "choice selected");
 
-  if (choiceSelected === addDep) {
-    console.log(addDepartments);
-    console.log(addDep);
-    addDepFn();
+  if (choiceSelected === addEmployees) {
+    // console.log(addDepartments);
+    console.log(addEmployees);
+    addEmpFn();
   } else if (choiceSelected === addRoles) {
-
     console.log(addRoles);
     rolesAdd();
-  } else if (choiceSelected === addEmployees) {
-
-    console.log(addEmployees);
+  } else if (choiceSelected === addDep) {
+    console.log(addDep);
   } else if (choiceSelected === viewDep) {
-  
     console.log(viewDep);
   } else if (choiceSelected === viewRoles) {
-    
     console.log(viewRoles);
-
   } else if (choiceSelected === viewEmployees) {
-   
     console.log(viewEmployees);
   } else if (choiceSelected === updateEmpRoles) {
-
     console.log(updateEmpRoles);
   } else {
     console.log(
@@ -86,25 +69,53 @@ const choiceSelected = (choice) => {
     );
   }
 };
-const addDepFn = () => {
+const addEmpFn = () => {
+  inquirer
+    //prompt user to select who to add
+    .prompt([
+      {
+        type: "input",
+        message: "Enter first name of Employee",
+        name: "firstName",
+      },
+      {
+        type: "input",
+        message: "Enter last name of Employee",
+        name: "lastName",
+      },
+    ])
+    .then((choice) => {
+      const firstName = choice.firstName;
+      const lastName = choice.lastName;
+      console.log(firstName, "firstname", lastName, "lastname");
+
+      //call function and pass choice either eng intern or manager
+      selectRoleFn(firstName, lastName);
+    });
+};
+
+const selectRoleFn = (firstName, lastName) => {
   inquirer
     //prompt user to select who to add
     .prompt([
       {
         type: "list",
-        message: "Select Engineer or Intern below to add more team members",
-        name: "typeOfTeamMem",
-        choices: ["Engineer", "Intern"],
+        message: `What will ${firstName} ${lastName}'s role be?`,
+        name: "optionSelected",
+        choices: [
+          "CIO",
+          "Engineering Director",
+          "HR Analyst",
+          "Operations Analyst",
+          "Marketing Manager",
+        ],
       },
     ])
     .then((choice) => {
-      //call function and pass choice either eng intern or manager
-      typeOfEmployee(choice);
+      console.log(choice.optionSelected, " choice in the selectRoleFn");
+      //do something with the database
     });
 };
-// //call addTeamMember for initial call prompt to add team member
-// // addTeamMember();
-// addManager();
 
 // const selectedEngineer = (choiceSelected) => {
 //   inquirer
