@@ -17,13 +17,19 @@
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const connection = require("./db/connection.js");
+const updateDb = require("./db/db.js");
 
 // const teamMembers = [];
 
 // Prompt Questions to ask
-const addDepartments = "Add departments, roles, employees";
-const viewDepartments = "View departments, roles, employees";
-const updateEmployeeRoles = "Update employee roles";
+const addDep = "ADD Departments";
+const addRoles = "ADD Roles";
+const addEmployees = "ADD Employees";
+const viewDep = "VIEW Departments":
+const viewRoles = "VIEW Roles":
+const viewEmployees = "VIEW Employees":
+const updateEmpRoles = "Update employee roles";
 
 const questionSelect = () => {
   inquirer
@@ -33,51 +39,69 @@ const questionSelect = () => {
         type: "list",
         message: `Welcome to the employee manager app, what would you like to do?`,
         name: "initialOption",
-        choices: [addDepartments, viewDepartments, updateEmployeeRoles],
+        choices: [addDep, addRoles, addEmployees,viewDep, viewRoles, viewEmployees, updateEmpRoles],
       },
     ])
     .then((choice) => {
       choiceSelected(choice);
     });
 };
+
+
+
+
 questionSelect();
 
 const choiceSelected = (choice) => {
   const choiceSelected = choice.initialOption;
   console.log(choiceSelected, "choice selected");
 
-  if (choiceSelected === addDepartments) {
+  if (choiceSelected === addDep) {
     console.log(addDepartments);
-    //call a function
-    // selectedManager(choiceSelected);
-  } else if (choiceSelected === viewDepartments) {
-    // selectedIntern(choiceSelected);
-    console.log(addDepartments);
-  } else if (choiceSelected === updateEmployeeRoles) {
-    console.log(addDepartments);
-    // selectedEngineer(choiceSelected);
+    console.log(addDep);
+    addDepFn();
+  } else if (choiceSelected === addRoles) {
+
+    console.log(addRoles);
+    rolesAdd();
+  } else if (choiceSelected === addEmployees) {
+
+    console.log(addEmployees);
+  } else if (choiceSelected === viewDep) {
+  
+    console.log(viewDep);
+  } else if (choiceSelected === viewRoles) {
+    
+    console.log(viewRoles);
+
+  } else if (choiceSelected === viewEmployees) {
+   
+    console.log(viewEmployees);
+  } else if (choiceSelected === updateEmpRoles) {
+
+    console.log(updateEmpRoles);
   } else {
     console.log(
-      "there was an error in you applications, eng, intern or manager wasn't selected"
+      "there was an error in you applications with initial selection"
     );
   }
 };
-// const addTeamMember = () => {
-//   inquirer
-//     //prompt user to select who to add
-//     .prompt([
-//       {
-//         type: "list",
-//         message: "Select Engineer or Intern below to add more team members",
-//         name: "typeOfTeamMem",
-//         choices: ["Engineer", "Intern"],
-//       },
-//     ])
-//     .then((choice) => {
-//       //call function and pass choice either eng intern or manager
-//       typeOfEmployee(choice);
-//     });
-// };
+const addDepFn = () => {
+  inquirer
+    //prompt user to select who to add
+    .prompt([
+      {
+        type: "list",
+        message: "Select Engineer or Intern below to add more team members",
+        name: "typeOfTeamMem",
+        choices: ["Engineer", "Intern"],
+      },
+    ])
+    .then((choice) => {
+      //call function and pass choice either eng intern or manager
+      typeOfEmployee(choice);
+    });
+};
 // //call addTeamMember for initial call prompt to add team member
 // // addTeamMember();
 // addManager();
