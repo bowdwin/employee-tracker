@@ -1,8 +1,9 @@
 const inquirer = require("inquirer");
-const DB = require("./db/db");
-const database = new DB();
-const path = require("path");
-const fs = require("fs");
+const Database = require("./db/Database");
+const db = new Database();
+// const path = require("path");
+// const fs = require("fs");
+const cTable = require("console.table");
 // const connection = require("./db/connection.js");
 // const updateDb = require("./db/db.js");
 
@@ -40,8 +41,6 @@ const questionSelect = () => {
       choiceSelected(choice);
     });
 };
-
-questionSelect();
 
 const choiceSelected = (choice) => {
   const choiceSelected = choice.initialOption;
@@ -112,16 +111,17 @@ const selectRoleFn = (firstName, lastName) => {
         ],
       },
     ])
-    .then((choice) => {
-      database
-        .createEmployee(firstName, lastName, choice.optionSelected)
-        .then((response) => {
+    .then(function (choice) {
+      db.createEmployee(firstName, lastName, choice.optionSelected).then(
+        (response) => {
           console.log(response);
-        });
+        }
+      );
       questionSelect();
     });
 };
 
+questionSelect();
 // const selectedEngineer = (choiceSelected) => {
 //   inquirer
 //     .prompt([
