@@ -29,7 +29,12 @@ class Database {
       }
     );
   }
-  ViewRole() {}
+  viewRoles() {
+    return this.connection.query("SELECT title FROM roles", (err, result) => {
+      if (err) throw err;
+      console.table(result);
+    });
+  }
 }
 
 module.exports = Database;
