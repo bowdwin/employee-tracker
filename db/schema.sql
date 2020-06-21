@@ -5,31 +5,25 @@ USE EMPLOYEES;
 
 -- create 3 different table 
 -- * **department**:
-CREATE TABLE department(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
-  name VARCHAR(30),
-  PRIMARY KEY (id)
+CREATE TABLE employees (
+id INT NOT NULL AUTO_INCREMENT,
+first_name VARCHAR(30) NOT NULL,
+last_name VARCHAR(30) NOT NULL,
+role_id INT,
+manager VARCHAR(30),
+PRIMARY KEY (id)
 );
 
-CREATE TABLE role(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
-  title VARCHAR(30),
-  salary DECIMAL(30),
-  department_id INT(10),
-  PRIMARY KEY (id)
-  -- FOREIGN KEY (department_id) REFERENCES department(id)
+CREATE TABLE roles (
+id INT NOT NULL AUTO_INCREMENT,
+title VARCHAR(30),
+salary DECIMAL(10,2),
+department_id INT,
+PRIMARY KEY (id)
 );
 
-CREATE TABLE employee(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
-  first_name VARCHAR(30),
-  last_name VARCHAR(30),
-  role_id INTEGER(3),
-  manager_id INTEGER(3),
-  department_id INTEGER(3),
-  PRIMARY KEY (id)
-  --  works
-  -- FOREIGN KEY (role_id) REFERENCES role(id)
-    -- seems to be error with below
-  -- FOREIGN KEY (manager_id) REFERENCES employee(id)
+CREATE TABLE departments (
+id INT NOT NULL AUTO_INCREMENT,
+department VARCHAR(30),
+PRIMARY KEY (id)
 );

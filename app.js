@@ -61,6 +61,8 @@ const choiceSelected = (choice) => {
     console.log(viewRoles);
   } else if (choiceSelected === viewEmployees) {
     console.log(viewEmployees);
+    db.viewEmployees();
+    console.log(viewEmployees);
   } else if (choiceSelected === updateEmpRoles) {
     console.log(updateEmpRoles);
   } else {
@@ -114,7 +116,10 @@ const selectRoleFn = (firstName, lastName) => {
     .then(function (choice) {
       db.createEmployee(firstName, lastName, choice.optionSelected).then(
         (response) => {
-          console.log(response);
+          console.log(
+            response,
+            "console log of repsonse of .then in selectRnfn"
+          );
         }
       );
       questionSelect();

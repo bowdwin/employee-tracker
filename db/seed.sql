@@ -1,18 +1,15 @@
-use employees;
+  
+INSERT INTO employees
+(first_name, last_name, role_id, manager)
+VALUES
+("Keith", "Beaudoin", 1, "Jon Bonjovi"), ("Bonjovi", "John", 2, "Jon Billo"), ("Katy", "Hladki", 3, "Keith Beaudoin"), ("Billo", "Jon", 4, "Katy Hladki"), ("Katy", "Hladki", 3, "Keith Beaudoin");
 
--- SEED department
-INSERT INTO department (name)
-VALUES ("Information Tech"),("Human Resources"),
- ("Engineering"),("Operations"),("Marketing");
+INSERT INTO roles
+(title, salary, department_id)
+VALUES
+("Business Analyst", 70000, 1), ("Lead Engineer", 100000, 1), ("Treasury Analyst", 120000, 2), ("Salesperson", 85000, 3);
 
-  -- SEED role
-INSERT INTO role (title, salary, department_id)
-VALUES ("CIO", 15000000, 1),("Engineering Director", 220000, 3),
-("HR Analyst", 95000, 2),("Operations Analyst", 90000, 4),
-("Marketing Manager", 150000, 5);
-
- -- SEED employee
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Keith", "Beaudoin", 1, 1),("Katy", "Hladki", 2, 1),
-("Ben", "Watson", 4, 3),("Tom ","Brady",5 , 1),
-("Rob", "Gronkowski", 2, 3),("Aaron","Hern",3,1);
+INSERT INTO departments
+(department)
+VALUES
+("Engineering"), ("Treasury"), ("Sales");
