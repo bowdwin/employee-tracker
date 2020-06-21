@@ -1,13 +1,7 @@
 const inquirer = require("inquirer");
 const Database = require("./db/Database");
 const db = new Database();
-// const path = require("path");
-// const fs = require("fs");
 const cTable = require("console.table");
-// const connection = require("./db/connection.js");
-// const updateDb = require("./db/db.js");
-
-// const teamMembers = [];
 
 // Prompt Questions to ask
 const addEmployees = "ADD Employees";
@@ -56,9 +50,11 @@ const choiceSelected = (choice) => {
   } else if (choiceSelected === addDep) {
     console.log(addDep);
   } else if (choiceSelected === viewDep) {
+    db.ViewDepartments();
     console.log(viewDep);
   } else if (choiceSelected === viewRoles) {
     console.log(viewRoles);
+    db.viewRoles();
   } else if (choiceSelected === viewEmployees) {
     console.log(viewEmployees);
     db.viewEmployees();
@@ -70,6 +66,7 @@ const choiceSelected = (choice) => {
       "there was an error in you applications with initial selection"
     );
   }
+  questionSelect();
 };
 const addEmpFn = () => {
   inquirer
