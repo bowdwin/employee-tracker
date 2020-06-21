@@ -31,7 +31,7 @@ const questionSelect = () => {
         ],
       },
     ])
-    .then((choice) => {
+    .then(function (choice) {
       choiceSelected(choice);
     });
 };
@@ -57,7 +57,7 @@ const choiceSelected = (choice) => {
     db.viewRoles();
   } else if (choiceSelected === viewEmployees) {
     console.log(viewEmployees);
-    db.viewEmployees();
+    viewEmpFn();
     console.log(viewEmployees);
   } else if (choiceSelected === updateEmpRoles) {
     console.log(updateEmpRoles);
@@ -66,64 +66,51 @@ const choiceSelected = (choice) => {
       "there was an error in you applications with initial selection"
     );
   }
+  // questionSelect();
+};
+questionSelect();
+
+const viewEmpFn = () => {
+  db.viewEmployees().then((response) => {
+    console.table(response);
+  });
   questionSelect();
 };
+
 const addEmpFn = () => {
+  // db.viewRoles();
   inquirer
     //prompt user to select who to add
     .prompt([
       {
         type: "input",
         message: "Enter first name of Employee",
-        name: "firstName",
+        name: "first_name",
       },
       {
         type: "input",
         message: "Enter last name of Employee",
-        name: "lastName",
+        name: "last_name",
       },
-    ])
-    .then((choice) => {
-      const firstName = choice.firstName;
-      const lastName = choice.lastName;
-      console.log(firstName, "firstname", lastName, "lastname");
-
-      //call function and pass choice either eng intern or manager
-      selectRoleFn(firstName, lastName);
-    });
-};
-
-const selectRoleFn = (firstName, lastName) => {
-  inquirer
-    //prompt user to select who to add
-    .prompt([
       {
-        type: "list",
-        message: `What will ${firstName} ${lastName}'s role be?`,
-        name: "optionSelected",
-        choices: [
-          "CIO",
-          "Engineering Director",
-          "HR Analyst",
-          "Operations Analyst",
-          "Marketing Manager",
-        ],
+        type: "input",
+        message: "Who is their Manager?",
+        name: "manager",
+      },
+      {
+        type: "input",
+        message: "What is their Role?",
+        name: "role_id",
       },
     ])
-    .then(function (choice) {
-      db.createEmployee(firstName, lastName, choice.optionSelected).then(
-        (response) => {
-          console.log(
-            response,
-            "console log of repsonse of .then in selectRnfn"
-          );
-        }
-      );
+    .then(function (employee) {
+      db.createEmployee(employee).then((response) => {
+        console.table(response);
+      });
       questionSelect();
     });
 };
 
-questionSelect();
 // const selectedEngineer = (choiceSelected) => {
 //   inquirer
 //     .prompt([
