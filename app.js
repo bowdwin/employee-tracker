@@ -42,25 +42,19 @@ const choiceSelected = (choice) => {
 
   if (choiceSelected === addEmployees) {
     // console.log(addDepartments);
-    console.log(addEmployees);
     addEmpFn();
   } else if (choiceSelected === addRoles) {
-    console.log(addRoles);
-    rolesAdd();
+    addRolesFn();
   } else if (choiceSelected === addDep) {
-    console.log(addDep);
+    addDepFn();
   } else if (choiceSelected === viewDep) {
-    db.ViewDepartments();
-    console.log(viewDep);
+    viewDepFn();
   } else if (choiceSelected === viewRoles) {
-    console.log(viewRoles);
-    db.viewRoles();
+    viewRoleFn();
   } else if (choiceSelected === viewEmployees) {
-    console.log(viewEmployees);
     viewEmpFn();
-    console.log(viewEmployees);
   } else if (choiceSelected === updateEmpRoles) {
-    console.log(updateEmpRoles);
+    updateRoleFn();
   } else {
     console.log(
       "there was an error in you applications with initial selection"
@@ -68,10 +62,23 @@ const choiceSelected = (choice) => {
   }
   // questionSelect();
 };
-questionSelect();
 
 const viewEmpFn = () => {
   db.viewEmployees().then((response) => {
+    console.table(response);
+  });
+  questionSelect();
+};
+
+const viewDepFn = () => {
+  db.ViewDepartments().then((response) => {
+    console.table(response);
+  });
+  questionSelect();
+};
+
+const viewRoleFn = () => {
+  db.viewRoles().then((response) => {
     console.table(response);
   });
   questionSelect();
@@ -99,11 +106,11 @@ const addEmpFn = () => {
       },
       {
         type: "input",
-        message: "What is their Role?",
+        message: "What is their Role ID?",
         name: "role_id",
       },
     ])
-    .then(function (employee) {
+    .then((employee) => {
       db.createEmployee(employee).then((response) => {
         console.table(response);
       });
@@ -111,148 +118,80 @@ const addEmpFn = () => {
     });
 };
 
-// const selectedEngineer = (choiceSelected) => {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "input",
-//         message: `Enter name for ${choiceSelected}`,
-//         name: "name",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter id for ${choiceSelected}`,
-//         name: "id",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter email for ${choiceSelected}`,
-//         name: "email",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter github username for ${choiceSelected}`,
-//         name: "github",
-//       },
-//     ])
-//     .then((engChoice) => {
-//       //create a new engineer and pass all the questions answered from above to class
-//       const newEngineer = new Engineer(
-//         engChoice.name,
-//         engChoice.id,
-//         engChoice.email,
-//         engChoice.github
-//       );
-//       teamMembers.push(newEngineer);
-//       addMoreTeamMembers();
-//     });
-//   //do something
-// };
-// const selectedIntern = (choiceSelected) => {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "input",
-//         message: `Enter name for ${choiceSelected}`,
-//         name: "name",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter id for ${choiceSelected}`,
-//         name: "id",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter email for ${choiceSelected}`,
-//         name: "email",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter the school that the ${choiceSelected} is attending`,
-//         name: "school",
-//       },
-//     ])
-//     .then((intChoice) => {
-//       const newIntern = new Intern(
-//         intChoice.name,
-//         intChoice.id,
-//         intChoice.email,
-//         intChoice.school
-//       );
-//       teamMembers.push(newIntern);
-//       addMoreTeamMembers();
-//     });
-// };
+const addDepFn = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter new Department Name",
+        name: "department",
+      },
+    ])
+    .then((department) => {
+      console.log(department);
+      db.createDepartments(department).then((response) => {
+        console.table(response);
+      });
+      questionSelect();
+    });
+};
 
-// const selectedManager = (choiceSelected) => {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "input",
-//         message: `Enter name for ${choiceSelected}`,
-//         name: "name",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter id for ${choiceSelected}`,
-//         name: "id",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter email for ${choiceSelected}`,
-//         name: "email",
-//       },
-//       {
-//         type: "input",
-//         message: `Enter office number for ${choiceSelected}`,
-//         name: "officeNumber",
-//       },
-//     ])
-//     .then((manChoice) => {
-//       const newManager = new Manager(
-//         manChoice.name,
-//         manChoice.id,
-//         manChoice.email,
-//         manChoice.officeNumber
-//       );
-//       teamMembers.push(newManager);
-//       addMoreTeamMembers();
-//     });
-//   //do something
-// };
+const addRolesFn = () => {
+  // db.viewRoles();
+  inquirer
+    //prompt user to select who to add
+    .prompt([
+      {
+        type: "input",
+        message: "What is the new title of this Role",
+        name: "title",
+      },
+      {
+        type: "input",
+        message: "What is the salary?",
+        name: "salary",
+      },
+      {
+        type: "input",
+        message: "What is the department ID",
+        name: "department_id",
+      },
+    ])
+    .then((role) => {
+      db.createRole(role).then((response) => {
+        console.table(response);
+      });
+      questionSelect();
+    });
+};
 
-// const addMoreTeamMembers = () => {
-//   inquirer
-//     //prompt user to select who to add
-//     .prompt([
-//       {
-//         type: "list",
-//         message: "Would you like to add another team member?",
-//         name: "addAnotherTeam",
-//         choices: ["Yes", "No"],
-//       },
-//     ])
-//     .then((choice) => {
-//       if (choice.addAnotherTeam === "No") {
-//         //call render html if they added a manager
-//         if (managerWasAdded === true) {
-//           renderHTML();
-//           //else ask them to add a manager
-//         } else {
-//           console.log("Please add a Manager");
-//         }
-//       } else {
-//         addTeamMember();
-//       }
-//     });
-// };
+const updateRoleFn = () => {
+  // db.viewRoles();
+  inquirer
+    //prompt user to select who to add
+    .prompt([
+      {
+        type: "input",
+        message: "What is the new title of this Role",
+        name: "title",
+      },
+      {
+        type: "input",
+        message: "What is the salary?",
+        name: "salary",
+      },
+      {
+        type: "input",
+        message: "What is the department ID",
+        name: "department_id",
+      },
+    ])
+    .then((role) => {
+      db.updateRoles(role).then((response) => {
+        console.table(response);
+      });
+      questionSelect();
+    });
+};
 
-// const renderHTML = () => {
-//   let html = render(teamMembers);
-//   fs.writeFile(outputPath, html, (err) => {
-//     if (err) {
-//       return console.log(err);
-//     }
-//     console.log("Successfully created team.html in output folder");
-//   });
-// };
+questionSelect();
