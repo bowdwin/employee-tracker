@@ -7,7 +7,6 @@ class Database {
 
   createDepartments(department) {
     return this.connection.query("INSERT INTO departments SET ?", department);
-    // return this.connection.query("INSERT INTO department SET ?", department);
   }
   createEmployee(employee) {
     return this.connection.query("INSERT INTO employees SET ?", employee);
@@ -28,9 +27,10 @@ class Database {
     return this.connection.query("SELECT title FROM roles");
   }
 
-  updateRoles() {
-    return this.connection.query("SELECT title FROM roles");
-  }
+  //couldn't figure out how to get update roles working in here with async, will revisit this some day, commenting out for now
+  // updateRoles() {
+  //   return this.connection.query("SELECT title FROM roles");
+  // }
 }
 
 module.exports = Database;

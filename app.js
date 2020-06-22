@@ -12,6 +12,7 @@ const viewDep = "VIEW Departments";
 const viewRoles = "VIEW Roles";
 const viewEmployees = "VIEW Employees";
 const updateEmpRoles = "Update employee roles";
+const end = "End";
 
 const questionSelect = () => {
   inquirer
@@ -29,10 +30,11 @@ const questionSelect = () => {
           viewRoles,
           viewEmployees,
           updateEmpRoles,
+          end,
         ],
       },
     ])
-    .then(function (choice) {
+    .then((choice) => {
       choiceSelected(choice);
     });
 };
@@ -42,7 +44,6 @@ const choiceSelected = (choice) => {
   console.log(choiceSelected, "choice selected");
 
   if (choiceSelected === addEmployees) {
-    // console.log(addDepartments);
     addEmpFn();
   } else if (choiceSelected === addRoles) {
     addRolesFn();
@@ -57,11 +58,9 @@ const choiceSelected = (choice) => {
   } else if (choiceSelected === updateEmpRoles) {
     updateRoleFn();
   } else {
-    console.log(
-      "there was an error in you applications with initial selection"
-    );
+    sql.end();
   }
-  // questionSelect();
+  // TODO: add quit
 };
 
 const viewEmpFn = () => {
@@ -168,10 +167,7 @@ const addRolesFn = () => {
 };
 
 const updateRoleFn = () => {
-  sql.query("SELECT first_name, last_name, id FROM employees", function (
-    err,
-    res
-  ) {
+  sql.query("SELECT first_name, last_name, id FROM employees", (err, res) => {
     let employees = res.map((employee) => ({
       name: employee.first_name + " " + employee.last_name,
       value: employee.id,
@@ -193,7 +189,7 @@ const updateRoleFn = () => {
       .then((res) => {
         connection.query(
           `UPDATE employees SET role_id = ${res.role} WHERE id = ${res.employeeName}`,
-          function (err, res) {
+          (err, res) => {
             console.log(res);
             //updateRole(res);
             questionSelect();
