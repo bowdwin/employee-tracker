@@ -2,6 +2,7 @@ const inquirer = require("inquirer");
 const Database = require("./db/Database");
 const db = new Database();
 const cTable = require("console.table");
+const sql = require("./db/connection");
 
 // Prompt Questions to ask
 const addEmployees = "ADD Employees";
@@ -101,13 +102,14 @@ const addEmpFn = () => {
       },
       {
         type: "input",
-        message: "Who is their Manager?",
-        name: "manager",
+        message: "What is the manager id",
+        name: "manager_id",
       },
       {
         type: "input",
         message: "What is their Role ID?",
         name: "role_id",
+        choices: [1, 2, 3],
       },
     ])
     .then((employee) => {
@@ -166,32 +168,39 @@ const addRolesFn = () => {
 };
 
 const updateRoleFn = () => {
-  // db.viewRoles();
-  inquirer
-    //prompt user to select who to add
-    .prompt([
-      {
-        type: "input",
-        message: "What is the new title of this Role",
-        name: "title",
-      },
-      {
-        type: "input",
-        message: "What is the salary?",
-        name: "salary",
-      },
-      {
-        type: "input",
-        message: "What is the department ID",
-        name: "department_id",
-      },
-    ])
-    .then((role) => {
-      db.updateRoles(role).then((response) => {
-        console.table(response);
+  sql.query("SELECT first_name, last_name, id FROM employees", function (
+    err,
+    res
+  ) {
+    let employees = res.map((employee) => ({
+      name: employee.first_name + " " + employee.last_name,
+      value: employee.id,
+    }));
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "employeeName",
+          message: "Which employee's role would you like to update?",
+          choices: employees,
+        },
+        {
+          type: "input",
+          name: "role",
+          message: "What is your new role?",
+        },
+      ])
+      .then((res) => {
+        connection.query(
+          `UPDATE employees SET role_id = ${res.role} WHERE id = ${res.employeeName}`,
+          function (err, res) {
+            console.log(res);
+            //updateRole(res);
+            questionSelect();
+          }
+        );
       });
-      questionSelect();
-    });
+  });
 };
 
 questionSelect();
