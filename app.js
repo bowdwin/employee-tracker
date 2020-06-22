@@ -12,7 +12,6 @@ const viewDep = "VIEW Departments";
 const viewRoles = "VIEW Roles";
 const viewEmployees = "VIEW Employees";
 const updateEmpRoles = "Update employee roles";
-const end = "End";
 
 const questionSelect = () => {
   inquirer
@@ -30,7 +29,6 @@ const questionSelect = () => {
           viewRoles,
           viewEmployees,
           updateEmpRoles,
-          end,
         ],
       },
     ])
@@ -41,7 +39,6 @@ const questionSelect = () => {
 
 const choiceSelected = (choice) => {
   const choiceSelected = choice.initialOption;
-  console.log(choiceSelected, "choice selected");
 
   if (choiceSelected === addEmployees) {
     addEmpFn();
@@ -113,9 +110,9 @@ const addEmpFn = () => {
     ])
     .then((employee) => {
       db.createEmployee(employee).then((response) => {
-        console.table(response);
+        // console.table(response);
       });
-      questionSelect();
+      viewEmpFn();
     });
 };
 
@@ -129,11 +126,11 @@ const addDepFn = () => {
       },
     ])
     .then((department) => {
-      console.log(department);
+      // console.log(department);
       db.createDepartments(department).then((response) => {
-        console.table(response);
+        // console.table(response);
       });
-      questionSelect();
+      viewDepFn();
     });
 };
 
@@ -160,9 +157,9 @@ const addRolesFn = () => {
     ])
     .then((role) => {
       db.createRole(role).then((response) => {
-        console.table(response);
+        // console.table(response);
       });
-      questionSelect();
+      viewRoleFn();
     });
 };
 
