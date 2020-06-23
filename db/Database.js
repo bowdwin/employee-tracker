@@ -27,10 +27,11 @@ class Database {
     return this.connection.query("SELECT title FROM roles");
   }
 
-  //couldn't figure out how to get update roles working in here with async, will revisit this some day, commenting out for now
-  // updateRoles() {
-  //   return this.connection.query("SELECT title FROM roles");
-  // }
+  updateRoles(res) {
+    return this.connection.query(
+      `UPDATE employees SET role_id = ${res.role} WHERE id = ${res.employeeName}`
+    );
+  }
 }
 
 module.exports = Database;

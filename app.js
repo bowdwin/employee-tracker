@@ -15,7 +15,6 @@ const updateEmpRoles = "Update employee roles";
 
 const questionSelect = () => {
   inquirer
-    //prompt user to select who to add
     .prompt([
       {
         type: "list",
@@ -82,9 +81,7 @@ const viewRoleFn = () => {
 };
 
 const addEmpFn = () => {
-  // db.viewRoles();
   inquirer
-    //prompt user to select who to add
     .prompt([
       {
         type: "input",
@@ -126,18 +123,13 @@ const addDepFn = () => {
       },
     ])
     .then((department) => {
-      // console.log(department);
-      db.createDepartments(department).then((response) => {
-        // console.table(response);
-      });
+      db.createDepartments(department).then((response) => {});
       viewDepFn();
     });
 };
 
 const addRolesFn = () => {
-  // db.viewRoles();
   inquirer
-    //prompt user to select who to add
     .prompt([
       {
         type: "input",
@@ -156,9 +148,7 @@ const addRolesFn = () => {
       },
     ])
     .then((role) => {
-      db.createRole(role).then((response) => {
-        // console.table(response);
-      });
+      db.createRole(role).then((response) => {});
       viewRoleFn();
     });
 };
@@ -180,18 +170,22 @@ const updateRoleFn = () => {
         {
           type: "input",
           name: "role",
-          message: "What is your new role?",
+          message: "What is your new role ID?",
         },
       ])
       .then((res) => {
-        connection.query(
-          `UPDATE employees SET role_id = ${res.role} WHERE id = ${res.employeeName}`,
-          (err, res) => {
-            console.log(res);
-            //updateRole(res);
-            questionSelect();
-          }
-        );
+        console.log(res, "res in .then");
+        db.updateRoles(res).then((response) => {
+          console.table(response);
+        });
+        // sql.query(
+        //   `UPDATE employees SET role_id = ${res.role} WHERE id = ${res.employeeName}`,
+        //   (err, res) => {
+        //     console.log(res);
+        //   }
+        // );
+        viewEmpFn();
+        questionSelect();
       });
   });
 };
