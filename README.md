@@ -2,12 +2,7 @@
 
 # Deployed Locally
 
-## Current bugs/feature enhancements needed
-
-    - Git needs to be uploaded
-    - questions seem to prompted twice at beginning, not sure why yet
-    - need to add a way to end the applications instead of control C
-    - issue with getting async to fully work with class for update role, but appears to be working outside
+# Issues uploading GIF will try tomorrow
 
 ## About / Synopsis
 
@@ -35,4 +30,4 @@
 
 ## GIF shot running employee tracker
 
-![](./public/assets/images/notetakegif.gif)
+![](./assets/et.gif)
